@@ -9,7 +9,7 @@ echo "	2) Pakai link gz mu sendiri"
 read -p "Pilih [1]: " PILIHOS
 
 case "$PILIHOS" in
-	1|"") PILIHOS="https://windows-on-cloud.wansaw.com/0:/win10_en.gz"  IFACE="Ethernet Instance 0 2";;
+	1|"") PILIHOS="https://windows-on-cloud.wansaw.com/0:/win10_en.gz"  IFACE="Ethernet Instance 0 1";;
 	2) read -p "Masukkan Link GZ mu : " PILIHOS;;
 	*) echo "pilihan salah"; exit;;
 esac
@@ -28,7 +28,7 @@ del /f /q "%temp%\Admin.vbs"
 exit /b 2)
 net user Administrator $PASSADMIN
 netsh -c interface ip set address name="$IFACE" source=static address=$IP4 mask=255.255.240.0 gateway=$GW
-netsh -c interface ip add dnsservers name="$IFACE" address=1.1.1.1 index=1 validate=no
+netsh -c interface ip add dnsservers name="$IFACE" address=8.8.8.8 index=1 validate=no
 netsh -c interface ip add dnsservers name="$IFACE" address=8.8.4.4 index=2 validate=no
 cd /d "%ProgramData%/Microsoft/Windows/Start Menu/Programs/Startup"
 del /f /q net.bat
@@ -37,7 +37,7 @@ EOF
 cat >/tmp/dpart.bat<<EOF
 @ECHO OFF
 echo JENDELA INI JANGAN DITUTUP
-echo SCRIPT INI AKAN MERUBAH PORT RDP MENJADI 5000, SETELAH RESTART UNTUK MENYAMBUNG KE RDP GUNAKAN ALAMAT $IP4:5000
+echo SCRIPT INI AKAN MERUBAH PORT RDP MENJADI 777, SETELAH RESTART UNTUK MENYAMBUNG KE RDP GUNAKAN ALAMAT $IP4:777
 echo KETIK YES LALU ENTER!
 cd.>%windir%\GetAdmin
 if exist %windir%\GetAdmin (del /f /q "%windir%\GetAdmin") else (
@@ -45,7 +45,7 @@ echo CreateObject^("Shell.Application"^).ShellExecute "%~s0", "%*", "", "runas",
 "%temp%\Admin.vbs"
 del /f /q "%temp%\Admin.vbs"
 exit /b 2)
-set PORT=5000
+set PORT=777
 set RULE_NAME="Open Port %PORT%"
 netsh advfirewall firewall show rule name=%RULE_NAME% >nul
 if not ERRORLEVEL 1 (
@@ -55,7 +55,7 @@ if not ERRORLEVEL 1 (
     echo Rule %RULE_NAME% does not exist. Creating...
     netsh advfirewall firewall add rule name=%RULE_NAME% dir=in action=allow protocol=TCP localport=%PORT%
 )
-reg add "HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v PortNumber /t REG_DWORD /d 5000
+reg add "HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v PortNumber /t REG_DWORD /d 777
 ECHO SELECT VOLUME=%%SystemDrive%% > "%SystemDrive%\diskpart.extend"
 ECHO EXTEND >> "%SystemDrive%\diskpart.extend"
 START /WAIT DISKPART /S "%SystemDrive%\diskpart.extend"
