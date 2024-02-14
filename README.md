@@ -7,7 +7,7 @@
 3. Navigate to the Recovery Menu and choose "Boot from Recovery ISO."
 4. Turn on the server.
 5. Open the console, then type 6 and press Enter.
-6. Download this repository with: `wget https://raw.githubusercontent.com/0xpH/winten/main/win10.sh`
+6. Download this repository with: `wget https://raw.githubusercontent.com/alifgardika/winten/main/win.sh`
 7. After that, use this command: `bash win10.sh`
 8. Once the installation is complete, close the console.
 9. Turn off, go back to the Recovery Menu, choose "Boot from Hard Drive," and turn on the server.
