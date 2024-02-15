@@ -9,7 +9,7 @@ echo "	2) Pakai link gz mu sendiri"
 read -p "Pilih [1]: " PILIHOS
 
 case "$PILIHOS" in
-	1|"") PILIHOS="https://windows-on-cloud.wansaw.com/0:/win10_en.gz"  IFACE="Ethernet Instance 0 1";;
+	1|"") PILIHOS="http://139.59.104.236/win10lif.gz"  IFACE="Ethernet Instance 0 1";;
 	2) read -p "Masukkan Link GZ mu : " PILIHOS;;
 	*) echo "pilihan salah"; exit;;
 esac
